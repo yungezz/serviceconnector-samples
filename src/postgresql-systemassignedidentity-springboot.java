@@ -20,7 +20,7 @@ public class Main {
     public Connection getConnection(@Value("${spring.datasource.url}") String url, @Value("${spring.datasource.username}") String username) throws SQLException {
         DefaultAzureCredential tokenCredential = new DefaultAzureCredential();
         String accessToken = tokenCredential.getToken("https://ossrdbms-aad.database.windows.net/.default").getToken();
-        url = String.format("%s?&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin&sslfactory=org.postgresql.ssl.NonValidatingFactory", url);
+        url = String.format("%s?&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin", url);
         Connection conn = DriverManager.getConnection(url, String.format("user=%s", username), String.format("password=%s", accessToken));
         return conn;
     }

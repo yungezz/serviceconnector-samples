@@ -12,7 +12,7 @@ public class Main {
         try {
             DefaultAzureCredential tokenCredential = new DefaultAzureCredential();
             String accessToken = tokenCredential.getToken("https://ossrdbms-aad.database.windows.net/.default").getToken();
-            String url = String.format("%s?sslfactory=org.postgresql.ssl.NonValidatingFactory&authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin", connectionString);
+            String url = String.format("%s?authenticationPluginClassName=com.azure.identity.extensions.jdbc.postgresql.AzurePostgresqlAuthenticationPlugin", connectionString);
             Connection conn = DriverManager.getConnection(url, String.format("password=%s", accessToken));
             System.out.println("Successfully connected!");
             conn.close();
